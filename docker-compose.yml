@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  delivery:
+    container_name: delivery
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: delivery:latest
+    ports:
+      - 80:80
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db-delivery
+      - SPRING_DATASOURCE_USERNAME=user-db
+      - SPRING_DATASOURCE_PASSWORD=cfkdghruhgurgh
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+    networks:
+      - spring-cloud-network
+    depends_on:
+      - flyway
+  postgres:
+    image: postgres:15.0
+    environment:
+      POSTGRES_DB: "db-delivery"
+      POSTGRES_USER: "user-db"
+      POSTGRES_PASSWORD: "cfkdghruhgurgh"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - rdb-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://postgres:5432/db-delivery -user=user-db -password=cfkdghruhgurgh migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - postgres
+#        condition: service_healthy
+
+volumes:
+  rdb-data:
+
+networks:
+  spring-cloud-network:
+    driver: bridge
+#  db:
+#
+#    image: 'postgres:latest'
+#    container_name: db-delivery
+#    ports:
+#      - "15432:5432"
+#    environment:
+#      - POSTGRES_USER=user-db
+#      - POSTGRES_PASSWORD=cfkdghruhgurgh

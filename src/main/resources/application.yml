@@ -1,1 +1,25 @@
+server:
+  port: 80
 
+spring:
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    generate-ddl: false
+    properties:
+      hibernate:
+        show_sql=true:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    username: user-db
+    password: cfkdghruhgurgh
+    url: jdbc:postgresql://localhost:5432/db-delivery
+    driverClassName: org.postgresql.Driver
+
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}

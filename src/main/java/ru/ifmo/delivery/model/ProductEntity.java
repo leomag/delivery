@@ -1,11 +1,13 @@
 package ru.ifmo.delivery.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 @Data
 @Entity
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +19,11 @@ public class ProductEntity {
     @Column(nullable = false)
     private Integer price;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_group_id", referencedColumnName = "id", nullable = false)
     private ProductGroupEntity productGroup;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_discount_id", referencedColumnName = "id")
     private ProductDiscountEntity productDiscount;
 
