@@ -1,0 +1,35 @@
+###
+GET http://localhost:80/api/v1/delivery/products
+
+<> 2023-10-10T143229.200.json
+<> 2023-10-10T135309.200.json
+<> 2023-10-10T131319.200.json
+<> 2023-10-10T110955.200.json
+<> 2023-10-10T110926.200.json
+<> 2023-10-10T102346.200.json
+
+###
+POST http://localhost:80/api/v1/delivery/product/new
+Content-Type: application/json
+
+{
+  "name_product": "пиво",
+  "price": 150,
+  "product_discount_id": {
+    "name_discount": "скидка",
+    "enabled": false
+  },
+  "product_group_id": {
+    "product_group": "напитки"
+  },
+  "user_id": {
+    "username": "Олег",
+    "email": "oleg@gmail.com"
+  }
+}
+
+<> 2023-10-10T134727.200.json
+<> 2023-10-10T134619.200.json
+<> 2023-10-10T134518.500.json
+<> 2023-10-10T134510.500.json
+<> 2023-10-10T134450.500.json
