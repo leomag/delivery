@@ -9,7 +9,7 @@ jobs:
       - name: Starting Java
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '17'
           distribution: 'adopt'
       - name: Build with Gradle
         run: ./gradlew build
