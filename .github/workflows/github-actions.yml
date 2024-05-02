@@ -1,5 +1,5 @@
 name: GitHub Actions
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on:
   push:
     branches: [ main ]
@@ -17,3 +17,23 @@ jobs:
           distribution: 'adopt'
       - name: Build with Gradle
         run: ./gradlew build
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Build container image
+        run: docker build -f dockerfile -t $(echo $REGISTRY)/$(echo @IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+
