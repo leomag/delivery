@@ -21,10 +21,10 @@ public class BestRestController {
     public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductDto productDto) {
         return ResponseEntity.ok(productService.save(productDto));
     }
-    @GetMapping("/products")
-    public ResponseEntity<List<ProductEntity>> findAll() {
-        return ResponseEntity.ok(productService.findAll());
-    }
+//    @GetMapping("/products")
+//    public ResponseEntity<List<ProductEntity>> findAll() {
+//        return ResponseEntity.ok(productService.findAll());
+//    }
 
     @GetMapping("/best-products")
     public ResponseEntity<?> getAll() {
