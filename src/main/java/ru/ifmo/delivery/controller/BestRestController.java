@@ -28,6 +28,6 @@ public class BestRestController {
 
     @GetMapping("/best-products")
     public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok("Ha-ha-ha!");
+        return ResponseEntity.ok("Ха-ха-ха СПО сдала на комиссии!");
     }
 }
