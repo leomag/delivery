@@ -25,4 +25,9 @@ public class BestRestController {
     public ResponseEntity<List<ProductEntity>> findAll() {
         return ResponseEntity.ok(productService.findAll());
     }
+
+    @GetMapping("/best-products")
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok("Ha-ha-ha!");
+    }
 }
