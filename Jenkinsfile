@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerHubId')
+    }
+
     stages {
         stage ('Build') {
             agent {
@@ -25,15 +30,22 @@ pipeline {
         }
         stage ('Push Docker Image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerHubId', url: 'https://id.docker.com') {
-                    sh 'docker push leomag/delivery'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//                 withDockerRegistry(credentialsId: 'dockerHubId', url: 'https://registry.hub.docker.com') {
+                    sh 'docker push leomag/delivery:latest'
                 }
             }
         }
+        // {steps{script {docker.withRegistry( '', registryCredential ) {dockerImage.push()}}}
         stage ('Deploy') {
             steps {
-                sh 'docker run -d -p 80:8080 leomag/delivery'
+                sh 'docker run -d -p 80:8080 leomag/delivery:latest'
             }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
