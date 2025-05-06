@@ -15,7 +15,7 @@ pipeline {
         }
         stage ('Build Docker Image') {
             steps {
-                sh 'docker build -t leomag/leomag .'
+                sh 'docker build -t leomag/delivery .'
             }
         }
         stage ('Push Docker Image') {
