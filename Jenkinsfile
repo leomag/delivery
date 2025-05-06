@@ -12,6 +12,8 @@ pipeline {
             steps {
                 sh './gradlew clean build'
             }
+        }
+        stage ('Docker Info') {
             steps {
                 sh 'docker info'
             }
