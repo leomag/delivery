@@ -39,7 +39,8 @@ pipeline {
         // {steps{script {docker.withRegistry( '', registryCredential ) {dockerImage.push()}}}
         stage ('Deploy') {
             steps {
-                sh 'docker run -d -p 80:8080 leomag/delivery:latest'
+                sh 'docker stop leomag/delivery:latest || true && docker rm leomag/delivery:latest || true'
+                sh 'docker run -d -p 80:80 leomag/delivery:latest'
             }
         }
     }

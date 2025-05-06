@@ -9,4 +9,8 @@ COPY . .
 
 RUN ./gradlew build -i --stacktrace
 
+ENV PORT 80
+
+EXPOSE $PORT
+
 ENTRYPOINT ["java", "-jar", "/app/build/libs/delivery-0.0.1-SNAPSHOT.jar"]
