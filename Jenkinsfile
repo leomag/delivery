@@ -35,7 +35,7 @@ pipeline {
                     sh 'docker push leomag/delivery:latest'
                 }
             }
-        }
+//         }
         // {steps{script {docker.withRegistry( '', registryCredential ) {dockerImage.push()}}}
         stage ('Deploy') {
             steps {
@@ -48,5 +48,4 @@ pipeline {
             sh 'docker logout'
         }
     }
-}
 }
