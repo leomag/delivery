@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Build') {
             agent {
-                docker {
+                any {
                     image 'openjdk:17'
                     args '-v "$PWD":/app'
                     reuseNode true
