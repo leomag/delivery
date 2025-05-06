@@ -15,7 +15,7 @@ pipeline {
         }
         stage ('Push Docker Image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerHubId', url: 'https://hub.docker.com') {
+                withDockerRegistry(credentialsId: 'dockerHubId', url: 'https://id.docker.com') {
                     sh 'docker push leomag/delivery'
                 }
             }
