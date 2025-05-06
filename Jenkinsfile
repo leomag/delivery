@@ -13,6 +13,11 @@ pipeline {
                 sh './gradlew clean build'
             }
         }
+        stage ('Build Docker Image') {
+            steps {
+                sh 'docker build -t leomag/leomag .'
+            }
+        }
         stage ('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerHubId', url: 'https://id.docker.com') {
