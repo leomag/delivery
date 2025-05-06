@@ -1,5 +1,12 @@
-FROM openjdk:17
-ARG JAR_FILE=build/libs/*.jar
+FROM openjdk:17-jdk-slim-buster AS builder
 
-COPY ${JAR_FILE} delivery-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "delivery-0.0.1-SNAPSHOT.jar"]
+RUN apt-get update -y
+RUN apt-get install -y binutils
+
+WORKDIR /app
+
+COPY . .
+
+RUN ./gradlew build -i --stacktrace
+
+ENTRYPOINT ["java", "-jar", "/app/build/libs/delivery-0.0.1-SNAPSHOT.jar"]
